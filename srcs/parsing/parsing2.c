@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:39:59 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 15:54:25 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/03 21:40:20 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int		firstlinemap(char *line, t_map *map)
 	{
 		if (!(map->map = ft_calloc(sizeof(char*), i)))
 			return (-1);
-		map->map[0] = ft_strdup(line);
+		if (!(map->map[0] = ft_strdup(line)))
+			return (-1);
 		return (1);
 	}
 	return (-1);

@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 15:14:04 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/02 18:41:53 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/04 01:12:29 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct			s_sprite
 {
 	double				x;
 	double				y;
+	double				dist;
 }						t_sprite;
 
 typedef struct			s_vec

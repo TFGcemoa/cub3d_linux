@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:34:07 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 17:42:20 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/03 21:54:20 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int		getlinemap(int fd, t_map *map)
 		endl = get_next_line(fd, &line);
 		if (endl >= -1)
 		{
-			verif = verifmap(line, map, numl);
-			if (verif == 1)
-				map->map[numl++] = ft_strdup(line);
+			if ((verif = verifmap(line, map, numl)) == 1)
+				map->map[numl] = ft_strdup(line);
+			numl = (map->map[numl]) ? numl + 1 : numl;
 			free(line);
 			line = NULL;
 			if (verif == -1)
@@ -124,7 +124,8 @@ int		parsing(char *argv, t_map *map)
 	}
 	if (verif_ext((char *)argv) == -1)
 		return (-1);
-	init_s_map(&map);
+	if (init_s_map(&map) == -1)
+		return (-1);
 	if (opencub((char *)argv, map) == (-2))
 		return (-1);
 	if (writeerror(map) == 0)

@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:45:28 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 16:38:03 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/03 21:36:28 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int		line_no(char *line, int i, t_map *map)
 	if (tryopentext(line + i) == -1)
 		return (-1);
 	map->no = ft_strdup(line + i);
+	if (map->no == NULL)
+		return (-1);
 	return (1);
 }
 
@@ -42,6 +44,8 @@ int		line_so(char *line, int i, t_map *map)
 	if (tryopentext(line + i) == -1)
 		return (-1);
 	map->so = ft_strdup(line + i);
+	if (map->so == NULL)
+		return (-1);
 	return (1);
 }
 
@@ -58,6 +62,8 @@ int		line_we(char *line, int i, t_map *map)
 	if (tryopentext(line + i) == -1)
 		return (-1);
 	map->we = ft_strdup(line + i);
+	if (map->we == NULL)
+		return (-1);
 	return (1);
 }
 
@@ -74,6 +80,8 @@ int		line_ea(char *line, int i, t_map *map)
 	if (tryopentext(line + i) == -1)
 		return (-1);
 	map->ea = ft_strdup(line + i);
+	if (map->ea == NULL)
+		return (-1);
 	return (1);
 }
 
@@ -90,5 +98,7 @@ int		line_s(char *line, int i, t_map *map)
 	if (tryopentext(line + i) == -1)
 		return (-1);
 	map->s = ft_strdup(line + i);
+	if (map->s == NULL)
+		return (-1);
 	return (1);
 }

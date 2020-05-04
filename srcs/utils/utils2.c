@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:42:33 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/04/19 23:11:32 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/03 21:49:32 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ size_t	ft_strlen(char const *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (*s != '\0')
 	{
 		i++;

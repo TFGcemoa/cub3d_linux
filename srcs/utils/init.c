@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:06:41 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 15:50:57 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/03 22:39:03 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ int		init_struc(t_map *map)
 
 void	set_texture(t_map *m)
 {
-	m->draw->data = mlx_get_data_addr(m->draw->img, &m->draw->bpp,
-		&m->draw->sizel, &m->draw->endian);
 	m->text_no->img = mlx_xpm_file_to_image(m->win->mlx, m->no, &m->text_no->x,
 		&m->text_no->y);
 	m->text_so->img = mlx_xpm_file_to_image(m->win->mlx, m->so, &m->text_so->x,
@@ -72,8 +70,6 @@ void	set_texture(t_map *m)
 		&m->text_we->bpp, &m->text_we->sizel, &m->text_we->endian);
 	m->text_s->data = mlx_get_data_addr(m->text_s->img,
 		&m->text_s->bpp, &m->text_s->sizel, &m->text_s->endian);
-	free_path(m);
-	set_res(m);
 }
 
 int		init_s_map(t_map **map)
@@ -96,7 +92,8 @@ int		init_s_map(t_map **map)
 	(*map)->diry = 0;
 	(*map)->plax = 0;
 	(*map)->play = 0;
-	(*map)->error = ft_strdup("Error\n");
+	if (!((*map)->error = ft_strdup("Error\n")))
+		return (-1);
 	(*map)->numsprite = 0;
 	(*map)->sc = 0;
 	(*map)->slist = NULL;

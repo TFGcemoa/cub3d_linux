@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:44:18 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 16:26:40 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/03 21:34:16 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int		rgb_to_int(int r, int g, int b)
 		freergb(&hexr, &hexg, &hexb);
 		return (-1);
 	}
-	hex = ft_strdup(hexr);
+	if (!(hex = ft_strdup(hexr)))
+		return (-1);
 	hex = ft_strjoins1(hex, hexg);
 	hex = ft_strjoins1(hex, hexb);
 	freergb(&hexr, &hexg, &hexb);

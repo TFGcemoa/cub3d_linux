@@ -6,18 +6,33 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:34:53 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 17:47:10 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/03 21:54:01 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "../../includes/struct.h"
 
+int 	put_error_screen(t_map *map)
+{
+	int	leng;
+
+	leng = 0;
+	if (map->error == NULL)
+	{
+		write(1, "Error\nProblème de malloc\n", 25);
+		return (-1);
+	}
+	if ((leng = ft_strlen(map->error)) > 6)
+		ft_putstr_fd(map->error, 1);
+	if (leng > 6)
+		return (free_opencub(map));
+	return (0);
+}
+
 int		writeerror(t_map *map)
 {
-	int		leng;
-
-	if (map->rx == 0 || map->ry == 0)
+	if (map->rx <= 0 || map->ry <= 0)
 		map->error = ft_strjoins1(map->error, "Mauvaise résolution\n");
 	if (map->no == NULL)
 		map->error = ft_strjoins1(map->error, "Mauvaise texture nord\n");
@@ -34,10 +49,7 @@ int		writeerror(t_map *map)
 	if (map->f < 0)
 		map->error = ft_strjoins1(map->error, "Mauvaise couleur sol\n");
 	verifsizemap(map);
-	if ((leng = ft_strlen(map->error)) > 6)
-		ft_putstr_fd(map->error, 1);
-	if (leng > 6)
-		return (free_opencub(map));
+	put_error_screen(map);
 	return (0);
 }
 

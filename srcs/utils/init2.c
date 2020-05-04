@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 15:40:56 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/02 18:19:24 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/04 01:12:57 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int		init_s_slist(t_map *map)
 			{
 				map->slist[num].x = i + 0.5;
 				map->slist[num].y = j + 0.5;
+				map->slist[num].dist = 0;
 				num++;
 			}
 			j++;

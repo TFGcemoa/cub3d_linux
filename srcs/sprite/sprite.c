@@ -6,110 +6,77 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:25:43 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/04/30 21:01:24 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/04 00:43:37 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "../../includes/struct.h"
 
-void	sortsprites(int *order, double *dist, int amount)
+void	sortsprites(t_map *m ,int i, int j)
 {
-	int			i;
-	int			j;
-	double		sprites[amount];
+	double				x;
+	double				y;
+	double				dist;
 
-	i = -1;
-	while (++i < amount)
-		sprites[i] = dist[i];
-	ft_sort_int_tab(sprites, amount);
-	i = 0;
-	while (i < amount)
-	{
-		j = 0;
-		while (j < amount)
-		{
-			if (dist[j] == sprites[i])
-			{
-				order[i] = j;
-				j = amount;
-			}
-			j++;
-		}
-		i++;
-	}
+	x = m->slist[i].x;
+	y = m->slist[i].y;
+	dist = m->slist[i].dist;
+
+	m->slist[i].x = m->slist[j].x;
+	m->slist[i].y = m->slist[j].y;
+	m->slist[i].dist = m->slist[j].dist;
+
+	m->slist[j].x = x;
+	m->slist[j].y = y;
+	m->slist[j].dist = dist;
 }
 
-void	classsprite(t_map *map, int *o, double *d)
+
+void	classsprite(t_map *m)
 {
 	double	a;
 	double	b;
 	int		i;
+	int		j;
 
 	i = 0;
-	while (i < map->numsprite)
+	while (i < m->numsprite)
 	{
-		o[i] = i;
-		a = (map->str.posx - map->slist[i].x) *
-		(map->str.posx - map->slist[i].x);
-		b = (map->str.posy - map->slist[i].y) *
-		(map->str.posy - map->slist[i].y);
-		d[i++] = (a + b);
+		a = (m->str.posx - m->slist[i].x) * (m->str.posx - m->slist[i].x);
+		b = (m->str.posy - m->slist[i].y) * (m->str.posy - m->slist[i].y);
+		m->slist[i++].dist = (a + b);
 	}
-}
-
-void	castsprite(t_map *map, double *zbuffer)
-{
-	int			spriteorder[map->numsprite];
-	double		spritedistance[map->numsprite];
-	int			i;
-	t_paramspt	spt;
-
-	classsprite(map, spriteorder, spritedistance);
-	sortsprites(spriteorder, spritedistance, map->numsprite);
 	i = 0;
-	while (i < map->numsprite)
+	while (i < m->numsprite)
 	{
-		spt.sptx = map->slist[spriteorder[i]].x - map->str.posx;
-		spt.spty = map->slist[spriteorder[i]].y - map->str.posy;
-		calculsprite(map, &spt);
-		drawsprite(map, &spt, zbuffer);
-		i++;
-	}
-}
-
-int		set_sprites(t_map *map)
-{
-	int	i;
-	int j;
-	int num;
-
-	i = 0;
-	num = 0;
-	if (!(map->slist = malloc(sizeof(t_sprite) * map->numsprite + 1)))
-		return (-1);
-	while (num < map->numsprite && map->map[i])
-	{
-		j = 0;
-		while (map->map[i][j])
+		j = i;
+		while (j < m->numsprite)
 		{
-			if (map->map[i][j] == '2')
-			{
-				map->slist[num].x = i + 0.5;
-				map->slist[num].y = j + 0.5;
-				num++;
-			}
+			if (m->slist[i].dist < m->slist[j].dist)
+				sortsprites(m, i, j);
 			j++;
 		}
 		i++;
 	}
-	return (0);
 }
 
 int		preparesprite(t_map *map, double *zbuffer)
 {
+	int			i;
+	t_paramspt	spt;
+
 	if (map->numsprite <= 0)
 		return (0);
-	castsprite(map, zbuffer);
+	classsprite(map);
+	i = 0;
+	while (i < map->numsprite)
+	{
+		spt.sptx = map->slist[i].x - map->str.posx;
+		spt.spty = map->slist[i].y - map->str.posy;
+		calculsprite(map, &spt);
+		drawsprite(map, &spt, zbuffer);
+		i++;
+	}
 	return (0);
 }

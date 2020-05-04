@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:27:55 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/02 18:39:18 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/04 10:12:50 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,14 @@ void	drawspritecolor(t_map *map, t_paramspt *spt, int d)
 		texsy = ((d * map->text_s->y) / spt->spriteheight) / 256;
 		color = map->text_s->data + (texsy * map->text_s->sizel +
 			spt->texsx * (map->text_s->bpp / 8));
+
+		if (texsy > 0)
+		{
 		map->draw->buff = map->draw->data + (y * map->draw->sizel) +
 		(spt->stripe * (map->draw->bpp / 8));
 		if (*(unsigned int*)color != 0xFF000000 && *(unsigned int*)color)
 			*(unsigned int*)map->draw->buff = *(unsigned int*)color;
+		}
 		y++;
 	}
 }
@@ -61,19 +65,19 @@ void	calculsprite(t_map *map, t_paramspt *spt)
 	spt->stripe = spt->drawstartx;
 }
 
-void	drawsprite(t_map *map, t_paramspt *spt, double *zbuffer)
+void	drawsprite(t_map *map, t_paramspt *s, double *zbuffer)
 {
 	int		d;
 	double	calc;
 
 	d = 0;
-	while (spt->stripe < spt->drawendx)
+	while (s->stripe < s->drawendx)
 	{
-		calc = (spt->stripe - (-spt->spritewidth / 2 + spt->spritescreenx));
-		spt->texsx = (int)(calc * map->text_s->x / spt->spritewidth);
-		if (spt->transy > 0 && spt->stripe > 0 && spt->stripe < map->rx &&
-			spt->transy < zbuffer[spt->stripe] && spt->texsx < map->text_s->x)
-			drawspritecolor(map, spt, d);
-		spt->stripe++;
+		calc = (s->stripe - (-s->spritewidth / 2 + s->spritescreenx));
+		s->texsx = (int)(256 * (calc * map->text_s->x / s->spritewidth) / 256);
+		if (s->transy > 0 && s->stripe > 0 && s->stripe < map->rx &&
+			s->transy < zbuffer[s->stripe] && s->texsx < map->text_s->x)
+			drawspritecolor(map, s, d);
+		s->stripe++;
 	}
 }

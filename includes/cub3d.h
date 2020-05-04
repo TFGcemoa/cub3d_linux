@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 20:16:28 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/02 20:12:01 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/04 10:08:03 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,14 @@ void			wirteheader(int fd, t_bmphead *head);
 int				setheader(t_bmphead *h, t_map *map);
 int				setpix(int fd, int pitch, t_map *map);
 int				screenshot(t_map *map);
-void			sortsprites(int *order, double *dist, int amount);
-void			classsprite(t_map *map, int *o, double *d);
+void			sortsprites(t_map *m ,int i, int j);
+void			classsprite(t_map *m);
 void			castsprite(t_map *map, double *zbuffer);
 int				set_sprites(t_map *map);
 int				preparesprite(t_map *map, double *zbuffer);
 void			drawspritecolor(t_map *map, t_paramspt *spt, int d);
 void			calculsprite(t_map *map, t_paramspt *spt);
-void			drawsprite(t_map *map, t_paramspt *spt, double *zbuffer);
+void			drawsprite(t_map *map, t_paramspt *s, double *zbuffer);
 int				init_struc(t_map *map);
 void			set_texture(t_map *map);
 int				init_s_map(t_map **map);
@@ -138,5 +138,6 @@ int				init_s_win(t_win **win);
 int				init_s_slist(t_map *map);
 int				free_opencub(t_map *map);
 int				verifendmap(t_map *map);
+int				init_img(t_map *map);
 
 #endif
