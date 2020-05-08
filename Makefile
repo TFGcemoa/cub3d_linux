@@ -6,10 +6,10 @@ SRCS	=	srcs/gnl/get_next_line.c \
 			srcs/parsing/check_map.c \
 			srcs/parsing/convert_color.c \
 			srcs/parsing/error_parsing.c \
+			srcs/parsing/file_parsing.c \
+			srcs/parsing/file_parsing2.c \
 			srcs/parsing/get_other.c \
 			srcs/parsing/get_path.c \
-			srcs/parsing/parsing.c \
-			srcs/parsing/parsing2.c \
 			srcs/parsing/utils_parsing.c \
 			srcs/raycasting/draw.c \
 			srcs/raycasting/raycasting.c \
@@ -23,7 +23,6 @@ SRCS	=	srcs/gnl/get_next_line.c \
 			srcs/utils/utils3.c \
 			srcs/utils/utils4.c \
 			srcs/utils/free.c \
-			srcs/parsing/file_parsing.c \
 			srcs/main.c
 
 OBJ	= ${SRCS:.c=.o}

@@ -6,14 +6,14 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:34:53 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/07 22:54:26 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/08 16:39:11 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "../../includes/struct.h"
 
-int 	put_error_screen2(t_map *map)
+int		put_error_screen(t_map *map)
 {
 	int	leng;
 
@@ -30,41 +30,6 @@ int 	put_error_screen2(t_map *map)
 	return (0);
 }
 
-int		writeerror(t_map *map)
-{
-	if (map->rx <= 0 || map->ry <= 0)
-		map->error = ft_strjoins1(map->error, "Mauvaise résolution\n");
-	if (map->no == NULL)
-		map->error = ft_strjoins1(map->error, "Mauvaise texture nord\n");
-	if (map->so == NULL)
-		map->error = ft_strjoins1(map->error, "Mauvaise texture sud\n");
-	if (map->ea == NULL)
-		map->error = ft_strjoins1(map->error, "Mauvaise texture est\n");
-	if (map->we == NULL)
-		map->error = ft_strjoins1(map->error, "Mauvaise texture ouest\n");
-	if (map->s == NULL)
-		map->error = ft_strjoins1(map->error, "Mauvaise texture sprite\n");
-	if (map->c < 0)
-		map->error = ft_strjoins1(map->error, "Mauvaise couleur plafond\n");
-	if (map->f < 0)
-		map->error = ft_strjoins1(map->error, "Mauvaise couleur sol\n");
-	verifsizemap(map);
-	return (put_error_screen2(map));
-}
-
-int		verif_ext(char *argv)
-{
-	int	i;
-
-	i = ft_strlen(argv);
-	if (argv[i - 1] == 'b' && argv[i - 2] == 'u' && argv[i - 3] == 'c' &&
-		argv[i - 4] == '.')
-		return (0);
-	else
-		write(1, "Error\nMauvaise extension de fichier\n", 36);
-	return (-1);
-}
-#include <stdio.h>
 int		verifendmap(t_map *map)
 {
 	int	i;
@@ -82,12 +47,9 @@ int		verifendmap(t_map *map)
 				map->map[i][j] == 'E' || map->map[i][j] == 'N' ||
 				map->map[i][j] == 'S' || map->map[i][j] == 'W')
 			{
-				if (i == map->numl - 1 || (map->map[i + 1] && (int)ft_strlen(map->map[i + 1]) <= j))
-				{
-					printf("%s\n", map->map[i]);
-					map->error = ft_strjoins1(map->error, "Mauvaise carte\n");
-					return (-1);
-				}
+				if (i == map->numl - 1 || (map->map[i + 1] &&
+					(int)ft_strlen(map->map[i + 1]) <= j))
+					return (join_wrong(map, "Mauvaise carte\n", -1));
 			}
 			j++;
 		}
@@ -105,29 +67,56 @@ int		verifsizemap(t_map *map)
 	if (ft_strlen(map->error) > 6)
 		return (-1);
 	if (!map->map)
-	{
-		map->error = ft_strjoins1(map->error, "Mauvaise carte\n");
-		return (-1);
-	}
+		return (join_wrong(map, "Mauvaise carte\n", -1));
 	while (i < 3)
 	{
 		j = 0;
 		if (!map->map[i])
-		{
-			map->error = ft_strjoins1(map->error, "Mauvaise carte\n");
-			return (-1);
-		}
+			return (join_wrong(map, "Mauvaise carte\n", -1));
 		while (j < 3)
 		{
 			if (map->map[i][j])
 				j++;
 			else
-			{
-				map->error = ft_strjoins1(map->error, "Mauvaise carte\n");
-				return (-1);
-			}
+				return (join_wrong(map, "Mauvaise carte\n", -1));
 		}
 		i++;
 	}
 	return (0);
+}
+
+int		verif_map_final(t_map *map)
+{
+	if (ft_strlen(map->error) > 6)
+		return (-1);
+	if (map->depx == -1 || map->depy == -1)
+	{
+		map->error = ft_strjoins1(map->error, "Mauvaise carte\n");
+		return (0);
+	}
+	verifendmap(map);
+	return (0);
+}
+
+int		parsing_error(t_map *map)
+{
+	verifsizemap(map);
+	verif_map_final(map);
+	if ((map->rx <= 0 || map->ry <= 0))
+		map->error = ft_strjoins1(map->error, "Mauvaise résolution\n");
+	if (map->no == NULL)
+		map->error = ft_strjoins1(map->error, "Mauvaise texture nord\n");
+	if (map->so == NULL)
+		map->error = ft_strjoins1(map->error, "Mauvaise texture sud\n");
+	if (map->ea == NULL)
+		map->error = ft_strjoins1(map->error, "Mauvaise texture est\n");
+	if (map->we == NULL)
+		map->error = ft_strjoins1(map->error, "Mauvaise texture ouest\n");
+	if (map->s == NULL)
+		map->error = ft_strjoins1(map->error, "Mauvaise texture sprite\n");
+	if (map->c < 0)
+		map->error = ft_strjoins1(map->error, "Mauvaise couleur plafond\n");
+	if (map->f < 0)
+		map->error = ft_strjoins1(map->error, "Mauvaise couleur sol\n");
+	return (put_error_screen(map));
 }

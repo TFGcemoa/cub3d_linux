@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:27:55 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/04 10:12:50 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/08 16:30:05 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ void	drawspritecolor(t_map *map, t_paramspt *spt, int d)
 		texsy = ((d * map->text_s->y) / spt->spriteheight) / 256;
 		color = map->text_s->data + (texsy * map->text_s->sizel +
 			spt->texsx * (map->text_s->bpp / 8));
-
 		if (texsy > 0)
 		{
-		map->draw->buff = map->draw->data + (y * map->draw->sizel) +
-		(spt->stripe * (map->draw->bpp / 8));
-		if (*(unsigned int*)color != 0xFF000000 && *(unsigned int*)color)
-			*(unsigned int*)map->draw->buff = *(unsigned int*)color;
+			map->draw->buff = map->draw->data + (y * map->draw->sizel) +
+			(spt->stripe * (map->draw->bpp / 8));
+			if (*(unsigned int*)color != 0xFF000000 && *(unsigned int*)color)
+				*(unsigned int*)map->draw->buff = *(unsigned int*)color;
 		}
 		y++;
 	}

@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 13:37:09 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/07 17:55:42 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/08 16:31:38 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int		verif_img(t_map *m)
 		!m->draw->img || !m->draw->data)
 		return (free_all(m));
 	return (0);
-
 }
 
 int		init_img(t_map *map)

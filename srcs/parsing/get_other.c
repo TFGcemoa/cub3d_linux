@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:46:58 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/07 19:36:10 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/08 16:31:35 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int		line_r(char *line, int i, t_map *map)
 
 int		line_f(char *line, int i, t_map *map)
 {
-	map->parskey.f = 1;
 	int color;
 
+	map->parskey.f = 1;
 	color = -1;
 	while (ft_isspace(line[i]) == 1)
 		i++;
@@ -62,9 +62,9 @@ int		line_f(char *line, int i, t_map *map)
 
 int		line_c(char *line, int i, t_map *map)
 {
-	map->parskey.c = 1;
 	int color;
 
+	map->parskey.c = 1;
 	color = -1;
 	while (ft_isspace(line[i]) == 1)
 		i++;

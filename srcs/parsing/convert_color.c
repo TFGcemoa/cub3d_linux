@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:44:18 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/07 17:38:14 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/08 16:32:39 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,10 @@ int		getrgb(char *line, int i)
 
 	rgb[1] = -1;
 	rgb[2] = -1;
-	
 	rgb[0] = ft_atoi(line + i);
 	if ((i = go_to_next_rgb(line, i)) == -1)
 		return (-1);
-	if (ft_isdigit(line[i]) == 1)	
+	if (ft_isdigit(line[i]) == 1)
 		rgb[1] = (ft_isdigit(line[i]) == 1) ? ft_atoi(line + i) : rgb[1];
 	if ((i = go_to_next_rgb(line, i)) == -1)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:38:10 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/07 18:03:17 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/08 16:35:31 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		getmapempty(char *line, t_map *map)
 			map->error = ft_strjoins1(map->error, "Clé inconnue ou double\n");
 			buff = 1;
 			return (0);
-		}	
+		}
 		i++;
 	}
 	if (line[i] == '1')
@@ -62,9 +62,9 @@ int		getmapempty(char *line, t_map *map)
 
 int		tryopentext(char *str)
 {
-	int fd;
-	int leng;
-	char *path;
+	int		fd;
+	int		leng;
+	char	*path;
 
 	if ((path = ft_worddup(str)) == NULL)
 		return (-1);

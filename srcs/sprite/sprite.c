@@ -6,14 +6,14 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:25:43 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/04 00:43:37 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/08 16:29:17 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "../../includes/struct.h"
 
-void	sortsprites(t_map *m ,int i, int j)
+void	sortsprites(t_map *m, int i, int j)
 {
 	double				x;
 	double				y;
@@ -22,16 +22,13 @@ void	sortsprites(t_map *m ,int i, int j)
 	x = m->slist[i].x;
 	y = m->slist[i].y;
 	dist = m->slist[i].dist;
-
 	m->slist[i].x = m->slist[j].x;
 	m->slist[i].y = m->slist[j].y;
 	m->slist[i].dist = m->slist[j].dist;
-
 	m->slist[j].x = x;
 	m->slist[j].y = y;
 	m->slist[j].dist = dist;
 }
-
 
 void	classsprite(t_map *m)
 {

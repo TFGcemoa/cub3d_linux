@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:00:32 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/04 00:56:32 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/08 16:28:33 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char const *argv[])
 		return (0);
 	if (argc >= 3 && (isscreenshot(&map, (char *)argv[2], "--save")) == 1)
 		return (0);
-	if (!(map.win->win = mlx_new_window(map.win->mlx, map.rx, map.ry, "Cube3D")))
+	if (!(map.win->win = mlx_new_window(map.win->mlx, map.rx, map.ry, "cub3D")))
 		return (free_all(&map));
 	raycasting(&map);
 	mlx_expose_hook(map.win->win, raycasting, &map);
