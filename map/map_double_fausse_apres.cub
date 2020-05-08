@@ -6,7 +6,7 @@ SO ./textures/hihi.xpm
 SO ./textures/caca.xpm
 WE ./textures/gold_ore.xpm
 EA ./textures/jungle_log.xpm
-S ./textures/mario.xpm
+S  ./textures/mario.xpm
 F 220,100,0
 C 225,30,0
 

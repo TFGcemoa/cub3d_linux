@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:34:07 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/08 16:33:24 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/08 18:20:10 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		parsing_keys2(char *line, int i, t_map *map)
 		ok = line_f(line, i, map);
 	else if (line[i] == 'C' && map->parskey.c == 0)
 		ok = line_c(line, i, map);
-	else if (line[i] == 'S' && map->parskey.s == 0)
+	else if (line[i] == 'S' && line[i + 1] != 'O' && map->parskey.s == 0)
 		ok = line_s(line, i, map);
 	return (ok);
 }
@@ -104,15 +104,16 @@ int		parsing_keys_map(char *argv, t_map *map)
 	line = NULL;
 	if ((fd = open(argv, O_RDONLY)) < 0)
 		return (0);
-	while ((endl = get_next_line(fd, &line)) > 0)
+	while (endl > 0)
 	{
+		endl = get_next_line(fd, &line);
 		if (endl >= -1)
 		{
 			if (keys < 9)
 				keys = parsing_keys(line, map, keys);
 			if (keys == 9)
 				keys = parsing_map(line, map);
-			if (keys >= 10)
+			else if (keys >= 10)
 				verif_end_file(line, map);
 			free_null(&line);
 		}
