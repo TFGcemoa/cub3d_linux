@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:34:07 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/08 18:20:10 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/09 00:22:49 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		parsing_keys(char *line, t_map *map, int keys)
 	map->lmap++;
 	while (line[i] && (line[i] < '!' || line[i] > '~'))
 		i++;
-	if ((ft_strlen(line) - i) < 2)
+	if ((ft_strlen(line) - i) < 1)
 	{
 		if (error == 0 && line[i] >= '!' && line[i] <= '~')
 			return (join_wrong(map, "Clé(s) inconnue(s)/double(s)\n", 1));
