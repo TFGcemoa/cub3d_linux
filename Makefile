@@ -23,6 +23,7 @@ SRCS	=	srcs/gnl/get_next_line.c \
 			srcs/utils/utils3.c \
 			srcs/utils/utils4.c \
 			srcs/utils/free.c \
+			srcs/parsing/file_parsing.c \
 			srcs/main.c
 
 OBJ	= ${SRCS:.c=.o}

@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:44:18 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 21:34:16 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/07 17:38:14 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,29 +93,44 @@ int		rgb_to_int(int r, int g, int b)
 	return (dec);
 }
 
+int		go_to_next_rgb(char *line, int i)
+{
+	while (ft_isdigit(line[i]) == 1 && line[i] != 0)
+		i++;
+	while (ft_isspace(line[i]) == 1 && line[i] != 0)
+		i++;
+	if (line[i] == ',' && line[i] != 0)
+		i++;
+	else
+		return (-1);
+	while (ft_isspace(line[i]) == 1 && line[i] != 0)
+		i++;
+	return (i);
+}
+
 int		getrgb(char *line, int i)
 {
-	int r;
-	int	g;
-	int	b;
+	int rgb[3];
 
-	r = -1;
-	g = -1;
-	b = -1;
-	r = ft_atoi(line + i);
-	while (ft_isdigit(line[i]) == 1 && line[i] != 0)
-		i++;
-	while (ft_isdigit(line[i]) == 0 && line[i] != 0)
-		i++;
-	if (ft_isdigit(line[i]) == 1)
-		g = ft_atoi(line + i);
-	while (ft_isdigit(line[i]) == 1 && line[i] != 0)
-		i++;
-	while (ft_isdigit(line[i]) == 0 && line[i] != 0)
-		i++;
-	if (ft_isdigit(line[i]) == 1)
-		b = ft_atoi(line + i);
-	if (ft_verif_rgb(r, g, b) == -1)
+	rgb[1] = -1;
+	rgb[2] = -1;
+	
+	rgb[0] = ft_atoi(line + i);
+	if ((i = go_to_next_rgb(line, i)) == -1)
 		return (-1);
-	return (rgb_to_int(r, g, b));
+	if (ft_isdigit(line[i]) == 1)	
+		rgb[1] = (ft_isdigit(line[i]) == 1) ? ft_atoi(line + i) : rgb[1];
+	if ((i = go_to_next_rgb(line, i)) == -1)
+		return (-1);
+	if (ft_isdigit(line[i]) == 1)
+		rgb[2] = ft_atoi(line + i);
+	if (ft_verif_rgb(rgb[0], rgb[1], rgb[2]) == -1)
+		return (-1);
+	while (ft_isdigit(line[i]) == 1 && line[i] != 0)
+		i++;
+	while (ft_isspace(line[i]) == 1 && line[i] != 0)
+		i++;
+	if (line[i] != '\0')
+		return (-1);
+	return (rgb_to_int(rgb[0], rgb[1], rgb[2]));
 }

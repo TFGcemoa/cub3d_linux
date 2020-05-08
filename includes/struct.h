@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 15:14:04 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/04 01:12:29 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/07 20:40:04 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,18 @@ typedef struct			s_paramsprite
 	int					texsx;
 }						t_paramspt;
 
+typedef struct			s_pars
+{
+	int					r;
+	int					no;
+	int					so;
+	int					ea;
+	int					we;
+	int					s;
+	int					f;
+	int					c;
+}						t_pars;
+
 typedef struct			s_map
 {
 	int					rx;
@@ -132,9 +144,11 @@ typedef struct			s_map
 	t_text				*text_s;
 	t_draw				*draw;
 	t_win				*win;
+	t_pars				parskey;
 	int					sc;
 	int					numsprite;
 	t_sprite			*slist;
+	int					numl;
 }						t_map;
 
 typedef struct			s_bmpimhead

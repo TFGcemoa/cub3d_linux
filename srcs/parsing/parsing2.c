@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:39:59 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 21:40:20 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/04 17:35:43 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		verif_id_line(char *line, int i, t_map *map)
 	leng = ft_strlen(line);
 	ok = 0;
 	if (i > leng - 2)
-		return (0);
+		return (-1);
 	if (line[i] == 'R' && map->rx == 0 && map->ry == 0)
 		ok = line_r(line, i, map);
 	else if (line[i] == 'N' && line[i + 1] == 'O' && map->no == NULL)
@@ -38,39 +38,60 @@ int		verif_id_line(char *line, int i, t_map *map)
 		ok = line_c(line, i, map);
 	else if (line[i] == 'S' && map->s == NULL)
 		ok = line_s(line, i, map);
-	ok = (ok < 0) ? 0 : ok;
 	return (ok);
 }
 
-int		verifline(char *line, t_map *map)
+int		ft_isprintnodigit(char c)
 {
-	int leng;
-	int	i;
-	int ok;
-
-	ok = 0;
-	i = 0;
-	leng = ft_strlen(line);
-	while (i < leng && ok == 0)
-	{
-		ok = verif_id_line(line, i, map);
-		i++;
-	}
-	return (ok);
-}
-
-int		firstlinemap(char *line, t_map *map)
-{
-	int	i;
-
-	i = map->nbrline - map->lmap + 1;
-	if (verifmap(line, map, 0) == 1)
-	{
-		if (!(map->map = ft_calloc(sizeof(char*), i)))
-			return (-1);
-		if (!(map->map[0] = ft_strdup(line)))
-			return (-1);
+	if (c >= '!' && c <= '/')
 		return (1);
+	if (c >= ':' && c <= '~')
+		return (1);
+	return (0);
+}
+#include <stdio.h>
+int		verifline(char *line, t_map *map, int oldok)
+{
+	int			i;
+	int 		ok;
+	static int	buff = 0;
+
+	i = 0;
+	while (line[i] <= '!' && line[i] >= '~' && line[i] != '\0')
+		i++;
+	ok = verif_id_line(line, i, map);
+	if (ok == 0)
+	{
+		if (line[i] == '1')
+			return (8);
+		if (buff == 0)
+		{
+			map->error = ft_strjoins1(map->error, "Clé inconnue ou double\n");
+			printf("%s - %i\n", line, map->lmap);
+		}
+		buff = 1;
+		return (oldok);
 	}
-	return (-1);
+	if (ok == 1)
+		return (oldok + 1);
+	return (oldok);
+}
+
+int		firstlinemap(char *line, t_map *m)
+{
+	int	i;
+	int	j;
+
+	i = m->nbrline - m->lmap + 1;
+	j = verifmap(line, m, 0);
+	if (j == 1)
+	{
+		if (!(m->map = ft_calloc(sizeof(char*), i)))
+			return (-1);
+		if (!(m->map[0] = ft_strdup(line)))
+			return (-1);
+	}
+	else if (j == -1)
+		return (-1);
+	return (1);
 }

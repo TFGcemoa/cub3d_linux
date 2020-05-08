@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:30:49 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/04/30 16:57:38 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/07 21:19:58 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		free_map_end(t_map *map)
 	int size;
 	int i;
 
-	size = map->nbrline - map->lmap + 1;
+	size = map->numl + 1;
 	i = 0;
 	if (!map->map)
 		return (-1);

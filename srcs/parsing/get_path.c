@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:45:28 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 21:36:28 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/07 18:04:06 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int		line_no(char *line, int i, t_map *map)
 {
+	map->parskey.no = 1;
 	while (ft_isspace(line[i]) == 1)
 		i++;
 	if (line[i] == 'N' && line[i + 1] == 'O')
@@ -25,7 +26,7 @@ int		line_no(char *line, int i, t_map *map)
 		return (-1);
 	if (tryopentext(line + i) == -1)
 		return (-1);
-	map->no = ft_strdup(line + i);
+	map->no = ft_worddup(line + i);
 	if (map->no == NULL)
 		return (-1);
 	return (1);
@@ -33,6 +34,7 @@ int		line_no(char *line, int i, t_map *map)
 
 int		line_so(char *line, int i, t_map *map)
 {
+	map->parskey.so = 1;
 	while (ft_isspace(line[i]) == 1)
 		i++;
 	if (line[i] == 'S' && line[i + 1] == 'O')
@@ -43,7 +45,7 @@ int		line_so(char *line, int i, t_map *map)
 		return (-1);
 	if (tryopentext(line + i) == -1)
 		return (-1);
-	map->so = ft_strdup(line + i);
+	map->so = ft_worddup(line + i);
 	if (map->so == NULL)
 		return (-1);
 	return (1);
@@ -51,6 +53,7 @@ int		line_so(char *line, int i, t_map *map)
 
 int		line_we(char *line, int i, t_map *map)
 {
+	map->parskey.we = 1;
 	while (ft_isspace(line[i]) == 1)
 		i++;
 	if (line[i] == 'W' && line[i + 1] == 'E')
@@ -61,7 +64,7 @@ int		line_we(char *line, int i, t_map *map)
 		return (-1);
 	if (tryopentext(line + i) == -1)
 		return (-1);
-	map->we = ft_strdup(line + i);
+	map->we = ft_worddup(line + i);
 	if (map->we == NULL)
 		return (-1);
 	return (1);
@@ -69,6 +72,7 @@ int		line_we(char *line, int i, t_map *map)
 
 int		line_ea(char *line, int i, t_map *map)
 {
+	map->parskey.ea = 1;
 	while (ft_isspace(line[i]) == 1)
 		i++;
 	if (line[i] == 'E' && line[i + 1] == 'A')
@@ -79,7 +83,7 @@ int		line_ea(char *line, int i, t_map *map)
 		return (-1);
 	if (tryopentext(line + i) == -1)
 		return (-1);
-	map->ea = ft_strdup(line + i);
+	map->ea = ft_worddup(line + i);
 	if (map->ea == NULL)
 		return (-1);
 	return (1);
@@ -87,6 +91,7 @@ int		line_ea(char *line, int i, t_map *map)
 
 int		line_s(char *line, int i, t_map *map)
 {
+	map->parskey.s = 1;
 	while (ft_isspace(line[i]) == 1)
 		i++;
 	if (line[i] == 'S')
@@ -97,7 +102,7 @@ int		line_s(char *line, int i, t_map *map)
 		return (-1);
 	if (tryopentext(line + i) == -1)
 		return (-1);
-	map->s = ft_strdup(line + i);
+	map->s = ft_worddup(line + i);
 	if (map->s == NULL)
 		return (-1);
 	return (1);

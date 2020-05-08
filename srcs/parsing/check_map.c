@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:40:54 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 17:31:17 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/07 22:48:38 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ int		verifothermap(char *line, int i, t_map *map, int numl)
 		return (-1);
 	if (i == 0 || !line[i - 1] || line[i - 1] == ' ')
 		return (-1);
+	if (i == (int)ft_strlen(line) - 1)
+		return (-1);
 	if (!line[i + 1] || line[i + 1] == ' ')
 		return (-1);
-	if (numl == map->nbrline - map->lmap)
+	if (numl == (map->nbrline - map->lmap - 1))
 		return (-1);
 	return (1);
 }
@@ -90,10 +92,20 @@ int		verifmap(char *line, t_map *map, int numl)
 	while (line[i] != '\0')
 	{
 		if (ismap(line[i], map, i, numl) == -1)
+		{
+			if (ft_strlen(map->error) <= 6)
+				map->error = ft_strjoins1(map->error, "Mauvaise carte\n");
 			return (-1);
+		}
 		if (verifcharmap(line, i, map, numl) == -1)
+		{
+			if (ft_strlen(map->error) <= 6)
+				map->error = ft_strjoins1(map->error, "Mauvaise carte\n");
 			return (-1);
+		}
 		i++;
 	}
+	if (line[0] == '\0')
+		return (-1);
 	return (1);
 }

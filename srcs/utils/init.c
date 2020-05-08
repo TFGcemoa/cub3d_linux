@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:06:41 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 22:39:03 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/07 20:40:23 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int		init_s_map(t_map **map)
 	(*map)->f = -1;
 	(*map)->c = -1;
 	(*map)->map = NULL;
-	(*map)->nbrline = 0;
 	(*map)->depx = -1;
 	(*map)->depy = -1;
 	(*map)->lmap = 0;
@@ -97,6 +96,8 @@ int		init_s_map(t_map **map)
 	(*map)->numsprite = 0;
 	(*map)->sc = 0;
 	(*map)->slist = NULL;
+	init_parskey(*map);
+	(*map)->numl = 0;
 	return (0);
 }
 

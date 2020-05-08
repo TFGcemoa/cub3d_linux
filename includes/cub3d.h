@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 20:16:28 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/04 10:08:03 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/07 17:53:53 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ int				opencubmap(t_map *map, int ok, int fd);
 int				opencub(char *argv, t_map *map);
 int				parsing(char *argv, t_map *map);
 int				verif_id_line(char *line, int i, t_map *map);
-int				verifline(char *line, t_map *map);
+int				verifline(char *line, t_map *map, int oldok);
 int				firstlinemap(char *line, t_map *map);
 int				countline(char *argv);
-int				getmapempty(char *line);
+int				getmapempty(char *line, t_map *map);
 int				tryopentext(char *path);
 int				ft_verif_rgb(int r, int g, int b);
 void			freergb(char **r, char **g, char **b);
@@ -139,5 +139,8 @@ int				init_s_slist(t_map *map);
 int				free_opencub(t_map *map);
 int				verifendmap(t_map *map);
 int				init_img(t_map *map);
+int				ft_isprintnodigit(char c);
+void			init_parskey(t_map *map);
+char			*ft_worddup(char *s);
 
 #endif

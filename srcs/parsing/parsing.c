@@ -6,7 +6,7 @@
 /*   By: nhochstr <nhochstr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 16:34:07 by nhochstr          #+#    #+#             */
-/*   Updated: 2020/05/03 21:54:20 by nhochstr         ###   ########.fr       */
+/*   Updated: 2020/05/04 16:43:23 by nhochstr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,24 @@
 int		gotomap(int fd, t_map *map)
 {
 	char	*line;
-	int		endl;
-	int		startmap;
-	int		ok;
+	int		ijk[3];
 
-	endl = 1;
+	ijk[0] = 1;
 	line = NULL;
-	startmap = 0;
-	ok = 0;
-	while (endl > 0)
+	ijk[1] = 0;
+	ijk[2] = 0;
+	while (ijk[0] > 0)
 	{
-		endl = get_next_line(fd, &line);
-		if (endl >= -1)
+		ijk[0] = get_next_line(fd, &line);
+		if (ijk[0] >= -1)
 		{
-			startmap = getmapempty(line);
-			if (startmap == 1)
-				ok = firstlinemap(line, map);
+			ijk[1] = getmapempty(line, map);
+			if (ijk[1] == 1)
+				ijk[2] = firstlinemap(line, map);
 			free(line);
 			line = NULL;
 			map->lmap++;
-			if (ok == 1)
+			if (ijk[2] == 1)
 				return (1);
 		}
 	}
@@ -73,19 +71,11 @@ int		getlinemap(int fd, t_map *map)
 
 int		opencubmap(t_map *map, int ok, int fd)
 {
-	if (ok == 8)
-		ok = ok + getlinemap(fd, map);
-	else
-	{
-		close(fd);
-		return (-1);
-	}
+	ok = ok + getlinemap(fd, map);
 	close(fd);
-	if (ok != 9)
-		return (free_map(map));
 	return (1);
 }
-
+#include <stdio.h>
 int		opencub(char *argv, t_map *map)
 {
 	int		fd;
@@ -94,29 +84,30 @@ int		opencub(char *argv, t_map *map)
 	int		ok;
 
 	line = NULL;
-	ok = 0;
 	map->nbrline = countline(argv);
-	if ((fd = open(argv, O_RDONLY)) < 0)
-	{
-		write(1, "Error\nFichier n'existe pas\n", 27);
-		return (free_opencub(map));
-	}
 	endl = 1;
+	ok = 0;
+	if ((fd = open(argv, O_RDONLY)) < 0)
+		return (-2);
 	while (endl > 0 && ok < 8)
 	{
 		endl = get_next_line(fd, &line);
 		if (endl > -1)
 		{
-			ok = ok + verifline(line, map);
+			ok = verifline(line, map, ok);
 			free_null(&line);
 			map->lmap++;
 		}
 	}
-	return (opencubmap(map, ok, fd));
+	opencubmap(map, ok, fd);
+	return (0);
 }
 
-int		parsing(char *argv, t_map *map)
+int		parsing2(char *argv, t_map *map)
 {
+	int	fd;
+
+	fd = 0;
 	if (!argv)
 	{
 		write(1, "Error\nPas d'arguments\n", 22);
@@ -124,10 +115,16 @@ int		parsing(char *argv, t_map *map)
 	}
 	if (verif_ext((char *)argv) == -1)
 		return (-1);
+	if ((fd = open(argv, O_RDONLY)) < 0)
+	{
+		write(1, "Error\nFichier n'existe pas\n", 27);
+		return (-1);
+	}
+	close(fd);
 	if (init_s_map(&map) == -1)
 		return (-1);
-	if (opencub((char *)argv, map) == (-2))
-		return (-1);
+	if ((opencub((char *)argv, map)) == -1)
+		return (free_opencub(map));
 	if (writeerror(map) == 0)
 		return (1);
 	return (-1);
